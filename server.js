@@ -1,5 +1,10 @@
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
+} else {
+    app.use(express.static('client/dist'))
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'))
+    })
 }
 
 const express = require('express')
@@ -9,6 +14,7 @@ const { PORT, mongoUri } = require('./config')
 const cors = require('cors')
 const morgan = require('morgan')
 const bucketListItemRoutes = require('./routes/api/bucketListItems')
+const path = require('path')
 
 app.use(cors())
 app.use(morgan('tiny'))
@@ -25,7 +31,6 @@ db.once('open', () => console.log('Connected to the mevn DB on Atlas'))
 
 // Routes
 app.use('/api/bucketListItems', bucketListItemRoutes)
-app.get('/', (req, res) => res.send('Hello World'))
 
 // Call the Server
 app.listen(PORT, () => console.log(`App is listening at http://localhost:${PORT}`))
