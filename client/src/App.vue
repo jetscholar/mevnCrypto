@@ -66,7 +66,7 @@ export default {
       return item._id === this.selected._id
     },
     unselect() {
-      this.select = {}
+      this.selected = {}
       this.editedDescription = ""
     },
     async updateItem(item, i) {
