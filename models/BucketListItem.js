@@ -1,6 +1,8 @@
-const { Schema, model } = require('mongoose')
+//const { Schema, model } = require('mongoose')
+const mongoose = require('mongoose')
 
-const BucketListItemSchema = new Schema({
+
+const BucketListItemSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true
@@ -11,6 +13,6 @@ const BucketListItemSchema = new Schema({
     }    
 })
 
-const BucketListItem = model('bucketListItem', BucketListItemSchema)
+const BucketListItem = mongoose.model('bucketListItem', BucketListItemSchema)
 
 module.exports = BucketListItem

@@ -12,9 +12,9 @@ const bucketListItemRoutes = require('./routes/api/bucketListItems')
 
 app.use(cors())
 app.use(morgan('tiny'))
+app.use(express.json())
 
 // Connect to Mongo
-//mongoose.set('useCreateIndex', true); // to allow for creation of unique users ** deprecated in version 6
 mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -23,7 +23,9 @@ const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('Connected to the mevn DB on Atlas'))
 
+// Routes
 app.use('/api/bucketListItems', bucketListItemRoutes)
 app.get('/', (req, res) => res.send('Hello World'))
 
+// Call the Server
 app.listen(PORT, () => console.log(`App is listening at http://localhost:${PORT}`))
